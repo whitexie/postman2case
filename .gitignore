@@ -9,3 +9,4 @@ logs
 postman2case.egg-info
 reports
 tester_postman_collection.json
+.coverage
