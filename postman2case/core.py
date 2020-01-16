@@ -4,7 +4,6 @@ import logging
 import os
 import yaml
 
-from postman2case.compat import ensure_ascii
 from postman2case.parser import parse_value_from_type
 
 
@@ -127,14 +126,14 @@ class PostmanParser(object):
                 continue
             if output_file_type == "json":
                 with io.open(file_path, 'w', encoding="utf-8") as outfile:
-                    my_json_str = json.dumps(each_api, ensure_ascii=ensure_ascii, indent=4)
+                    my_json_str = json.dumps(each_api, ensure_ascii=False, indent=4)
                     if isinstance(my_json_str, bytes):
                         my_json_str = my_json_str.decode("utf-8")
 
                     outfile.write(my_json_str)
             else:
                 with io.open(file_path, 'w', encoding="utf-8") as outfile:
-                    my_json_str = json.dumps(each_api, ensure_ascii=ensure_ascii, indent=4)
+                    my_json_str = json.dumps(each_api, ensure_ascii=False, indent=4)
                     yaml.dump(my_json_str, outfile, allow_unicode=True, default_flow_style=False, indent=4)
                     
             logging.info("Generate JSON testset successfully: {}".format(file_path))
