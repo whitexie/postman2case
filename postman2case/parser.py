@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 def parse_value_from_type(value):
     if isinstance(value, int):
         return int(value)

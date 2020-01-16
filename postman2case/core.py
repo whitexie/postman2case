@@ -3,7 +3,6 @@ import json
 import logging
 import os
 import yaml
-from collections import OrderedDict
 
 from postman2case.compat import ensure_ascii
 from postman2case.parser import parse_value_from_type
@@ -19,7 +18,8 @@ class PostmanParser(object):
 
         return postman_data
     
-    def parse_url(self, request_url):
+    @staticmethod
+    def parse_url(request_url):
         url = ""
         if isinstance(request_url, str):
             url = request_url
@@ -28,7 +28,8 @@ class PostmanParser(object):
                 url= request_url["raw"]
         return url
     
-    def parse_header(self, request_header):
+    @staticmethod
+    def parse_header(request_header):
         headers = {}
         for header in request_header:
             headers[header["key"]] = header["value"]
@@ -103,7 +104,8 @@ class PostmanParser(object):
         result = self.parse_items(postman_data["item"], None)
         return result
 
-    def save(self, data, output_dir, output_file_type="json"):
+    @staticmethod
+    def save(data, output_dir, output_file_type="json"):
         count = 0
         output_dir = os.path.join(output_dir, "api")
         if not os.path.exists(output_dir):
@@ -133,7 +135,6 @@ class PostmanParser(object):
             else:
                 with io.open(file_path, 'w', encoding="utf-8") as outfile:
                     my_json_str = json.dumps(each_api, ensure_ascii=ensure_ascii, indent=4)
-                    yaml.dump(each_api, outfile, allow_unicode=True, default_flow_style=False, indent=4)
+                    yaml.dump(my_json_str, outfile, allow_unicode=True, default_flow_style=False, indent=4)
                     
             logging.info("Generate JSON testset successfully: {}".format(file_path))
-            

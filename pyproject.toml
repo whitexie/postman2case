@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "postman2case"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+PyYAML = "^5.3"
+
+
+[tool.poetry.dev-dependencies]
+coverage = "^5.0.3"
+coveralls = "^1.10.0"
+
+[tool.poetry.scripts]
+postman2case = "postman2case.cli:main"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
