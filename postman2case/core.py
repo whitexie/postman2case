@@ -104,7 +104,8 @@ class PostmanParser(object):
         result = self.parse_items(postman_data["item"], None)
         return result
 
-    def save(self, data, output_dir, output_file_type="json"):
+    @staticmethod
+    def save(data, output_dir, output_file_type="json"):
         count = 0
         output_dir = os.path.join(output_dir, "api")
         if not os.path.exists(output_dir):
