@@ -12,4 +12,4 @@ script:
   - poetry run coverage run --source=postman2case -m unittest discover
   - poetry run coverage report
 after_success:
-  - pipenv run coveralls
+  - poetry run coveralls
