@@ -8,7 +8,10 @@ authors = ["Your Name <you@example.com>"]
 python = "^3.6"
 PyYAML = "^5.3"
 
+
 [tool.poetry.dev-dependencies]
+coverage = "^5.0.3"
+coveralls = "^1.10.0"
 
 [tool.poetry.scripts]
 postman2case = "postman2case.cli:main"
