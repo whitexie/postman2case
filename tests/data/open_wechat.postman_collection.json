@@ -1,0 +1,771 @@
+{
+	"info": {
+		"_postman_id": "34fcd4e7-8b3e-4e0c-9d48-776ff231c85b",
+		"name": "微信公众号开放平台",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "客服消息",
+			"item": [
+				{
+					"name": "发消息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"touser\":\"oWOo81BJsvHd17NOeEt2p4g5Df_I\",\r\n    \"msgtype\":\"image\",\r\n    \"image\":\r\n    {\r\n      \"media_id\":\"4X6ftj3KUdV7knMo3KRicwh062dHEQ2WlPAfv7nwcwNHIJVcC4MtjY1GhDIHd-0x\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={{access_token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"weixin",
+								"qq",
+								"com"
+							],
+							"path": [
+								"cgi-bin",
+								"message",
+								"custom",
+								"send"
+							],
+							"query": [
+								{
+									"key": "access_token",
+									"value": "{{access_token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "自定义菜单",
+			"item": [
+				{
+					"name": "查询",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token={{access_token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"weixin",
+								"qq",
+								"com"
+							],
+							"path": [
+								"cgi-bin",
+								"get_current_selfmenu_info"
+							],
+							"query": [
+								{
+									"key": "access_token",
+									"value": "{{access_token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"button\": [\n        {\n            \"type\": \"miniprogram\",\n            \"name\": \"菜单名称\",\n            \"key\":\"13\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={{access_token}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"weixin",
+								"qq",
+								"com"
+							],
+							"path": [
+								"cgi-bin",
+								"menu",
+								"create"
+							],
+							"query": [
+								{
+									"key": "access_token",
+									"value": "{{access_token}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "获取素材列表",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\":\"news\",\r\n    \"offset\": \"0\",\r\n    \"count\": 20\r\n}"
+				},
+				"url": {
+					"raw": "https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token={{access_token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"cgi-bin",
+						"material",
+						"batchget_material"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取永久素材",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"media_id\": \"HH4roXzYfSuVo_A4nTzh8lfw-r_-mJhsVyW4uUlAVyE\"\n}"
+				},
+				"url": {
+					"raw": "https://api.weixin.qq.com/cgi-bin/material/get_material?access_token={{access_token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"cgi-bin",
+						"material",
+						"get_material"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取Access_token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "838418bc-8368-4e64-8105-be21ae86983c",
+						"exec": [
+							"var jsonData = pm.response.json()",
+							"pm.globals.set(\"access_token\", jsonData.access_token);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": " device_id=24700f9f1986800ab4fcc880530dd0ed; aliyungf_tc=AQAAAOTGXRY/YQUAFgm3c9RY0OWcM+Al; acw_tc=2760827f15709520483665936e798d7d5df765e1672a47048c3f51b14b0625; xq_a_token=d831cd39b53563679545656fba1f4efd8e48faa0; xq_r_token=fd2f0f487c8298cad8e7519f1560abb7a18c589d; u=821570952049723; Hm_lvt_1db88642e346389874251b5a1eded6e3=1569419106,1569504678,1570952051; Hm_lpvt_1db88642e346389874251b5a1eded6e3=1570952072",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxcf38d9f498fec2a0&secret=bdf75c44d011555eea5d210cdd8241a2",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"cgi-bin",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "client_credential"
+						},
+						{
+							"key": "appid",
+							"value": "wxcf38d9f498fec2a0"
+						},
+						{
+							"key": "secret",
+							"value": "bdf75c44d011555eea5d210cdd8241a2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "上传永久素材接口",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "media",
+							"type": "file",
+							"src": "/C:/Users/Ysansan/Desktop/微信图片_20190823165337.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=28_2QEpUnqMDGoyKA0ZUqVBMQZKWknrkMGyt1zMoPKo1dCHQo1P7Ve8diK6rCtBOlPB2eny0YtyYvWUq7dvUMObWL8KQSCtR-VLd_rZY1dBqvltvolMQ0c2xKvOnLV62CX0TpywiNP3nQU2d2A2DMUeAAATCK&type=image",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"cgi-bin",
+						"material",
+						"add_material"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "28_2QEpUnqMDGoyKA0ZUqVBMQZKWknrkMGyt1zMoPKo1dCHQo1P7Ve8diK6rCtBOlPB2eny0YtyYvWUq7dvUMObWL8KQSCtR-VLd_rZY1dBqvltvolMQ0c2xKvOnLV62CX0TpywiNP3nQU2d2A2DMUeAAATCK"
+						},
+						{
+							"key": "type",
+							"value": "image"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "创建票务",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"card\": {\r\n   \"card_type\": \"MEETING_TICKET\",\r\n   \"meeting_ticket\": {\r\n       \"base_info\": {\r\n           \"logo_url\": \"http://mmbiz.qpic.cn/mmbiz_jpg/94mbLofbZYia1VHvbhIZIia7rBy2cAS6KLppLD1P5tOfZnS5so96e2gTS8MvNpeYQEylZqAydr3icIaYfwIkvEyYA/0?wx_fmt=jpeg\",\r\n           \"brand_name\":\"用友秉钧\",\r\n           \"code_type\":\"CODE_TYPE_QRCODE\",\r\n           \"title\": \"75期沙龙裂变沙龙\",\r\n           \"color\": \"Color010\",\r\n           \"notice\": \"使用时向检票员出示此券\",\r\n           \"service_phone\": \"020-88888888\",\r\n           \"description\": \"请务必准时入场\\n\",\r\n           \"date_info\": {\r\n               \"type\": 1,\r\n               \"begin_timestamp\": 1576202935 ,\r\n               \"end_timestamp\": 1576684799\r\n           },\r\n           \"sku\": {\r\n           \t\t\"quantity\": 1000\r\n           },\r\n           \"get_limit\": 1,\r\n           \"use_custom_code\": false,\r\n           \"bind_openid\": false,\r\n           \"can_give_friend\": false,\r\n           \"location_id_list\" : [123, 12321, 345345],\r\n           \"custom_url_name\": \"活动地址\",\r\n           \"custom_url\": \"http://www.qq.com\",\r\n           \"custom_url_sub_title\": \"点击查看导航\"\r\n       },\r\n       \"meeting_detail\": \"本门票仅仅测试使用\"}\r\n }\r\n}"
+				},
+				"url": {
+					"raw": "https://api.weixin.qq.com/card/create?access_token={{access_token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"card",
+						"create"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "创建货架",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://api.weixin.qq.com/card/landingpage/create?access_token=$TOKEN",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"card",
+						"landingpage",
+						"create"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "$TOKEN"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "生成领券二维码",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"action_name\": \"QR_CARD\",\n    \"expire_seconds\": 1800,\n    \"action_info\": {\n        \"card\": {\n            \"card_id\": \"pWOo81MQcIgaOPkXlHwMf7LIg5ug\",\n            \"openid\": \"oWOo81BJsvHd17NOeEt2p4g5Df_I\",\n            \"is_unique_code\": false,\n            \"outer_str\": \"12b\"\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "https://api.weixin.qq.com/card/qrcode/create?access_token={{access_token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"card",
+						"qrcode",
+						"create"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查询Code接口",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"card_id\" : \"pWOo81H7s_WgGN7fDcaoMDOiPc_4\",\r\n   \"code\" : \"845843915622\",\r\n   \"check_consume\" : true\r\n}"
+				},
+				"url": {
+					"raw": "https://api.weixin.qq.com/card/code/get?access_token={{access_token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"card",
+						"code",
+						"get"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "核销code接口",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"card_id\": \"pWOo81H7s_WgGN7fDcaoMDOiPc_4\",\n\t\"code\": \"845843915622\"\n}"
+				},
+				"url": {
+					"raw": "https://api.weixin.qq.com/card/code/consume?access_token={{access_token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"card",
+						"code",
+						"consume"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "更新票务信息",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.weixin.qq.com/card/meetingticket/updateuser?access_token={{token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"card",
+						"meetingticket",
+						"updateuser"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "设置测试白名单",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": [\n      \"Vzzzzzzzzzz\",\n      \"wxid_03qi8gyuftuj22\"\n     ]\n }"
+				},
+				"url": {
+					"raw": "https://api.weixin.qq.com/card/testwhitelist/set?access_token={{access_token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"card",
+						"testwhitelist",
+						"set"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "发送客服消息",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={{access_token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"cgi-bin",
+						"message",
+						"custom",
+						"send"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取ticket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "838418bc-8368-4e64-8105-be21ae86983c",
+						"exec": [
+							"var jsonData = pm.response.json()",
+							"pm.globals.set(\"ticket\", jsonData.ticket);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "da1847f0-b425-40e1-88c3-ce2fd3a271cf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": " device_id=24700f9f1986800ab4fcc880530dd0ed; aliyungf_tc=AQAAAOTGXRY/YQUAFgm3c9RY0OWcM+Al; acw_tc=2760827f15709520483665936e798d7d5df765e1672a47048c3f51b14b0625; xq_a_token=d831cd39b53563679545656fba1f4efd8e48faa0; xq_r_token=fd2f0f487c8298cad8e7519f1560abb7a18c589d; u=821570952049723; Hm_lvt_1db88642e346389874251b5a1eded6e3=1569419106,1569504678,1570952051; Hm_lpvt_1db88642e346389874251b5a1eded6e3=1570952072",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"expire_seconds\": 2592000,\n    \"action_name\": \"QR_LIMIT_STR_SCENE\",\n    \"action_info\": {\n        \"scene\": {\n            \"scene_str\": \"oWOo81BJsvHd17NOeEt2p4g5Df_I\"\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={{access_token}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"cgi-bin",
+						"qrcode",
+						"create"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取图片二维码",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket={{ticket}}",
+					"protocol": "https",
+					"host": [
+						"mp",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"cgi-bin",
+						"showqrcode"
+					],
+					"query": [
+						{
+							"key": "ticket",
+							"value": "{{ticket}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "上传素材",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "media",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.weixin.qq.com/cgi-bin/media/upload?access_token={{access_token}}&type=image",
+					"protocol": "https",
+					"host": [
+						"api",
+						"weixin",
+						"qq",
+						"com"
+					],
+					"path": [
+						"cgi-bin",
+						"media",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{access_token}}"
+						},
+						{
+							"key": "type",
+							"value": "image"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

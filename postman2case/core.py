@@ -5,6 +5,7 @@ import os
 import yaml
 
 from postman2case.parser import parse_value_from_type
+from postman2case.utils import log
 
 
 class PostmanParser(object):
@@ -24,7 +25,7 @@ class PostmanParser(object):
             url = request_url
         elif isinstance(request_url, dict):
             if "raw" in request_url.keys():
-                url= request_url["raw"]
+                url = request_url["raw"]
         return url
     
     @staticmethod
@@ -34,51 +35,49 @@ class PostmanParser(object):
             headers[header["key"]] = header["value"]
         return headers
 
+    @log
     def parse_each_item(self, item):
         """ parse each item in postman to testcase in httprunner
         """
         api = {}
         api["name"] = item["name"]
         api["validate"] = []
-        api["variables"] = []
+        api["variables"] = {}
 
         request = {}
         request["method"] = item["request"]["method"]
 
         url = self.parse_url(item["request"]["url"])
+        request["url"] = url.split("?")[0]
+        request["headers"] = self.parse_header(item["request"]["header"])
 
-        if request["method"] == "GET":
-            request["url"] = url.split("?")[0]
-            request["headers"] = self.parse_header(item["request"]["header"])
+        if "query" in item["request"]["url"].keys():
+            params = {}
+            for query in item["request"]["url"]["query"]:
+                api["variables"].update({query["key"]: parse_value_from_type(query["value"])})
+                params[query["key"]] = "$" + query["key"]
+            request['params'] = params
 
-            body = {}
-            if "query" in item["request"]["url"].keys():
-                for query in item["request"]["url"]["query"]:
-                    api["variables"].append({query["key"]: parse_value_from_type(query["value"])})
-                    body[query["key"]] = "$"+query["key"]
-            request["params"] = body
-        else:
-            request["url"] = url
-            request["headers"] = self.parse_header(item["request"]["header"])
-
-            body = {}
-            if item["request"]["body"] != {}:
-                mode = item["request"]["body"]["mode"]
-                if isinstance(item["request"]["body"][mode], list):
-                    for param in item["request"]["body"][mode]:
-                        if param["type"] == "text":
-                            api["variables"].append({param["key"]: parse_value_from_type(param["value"])})
-                        else:
-                            api["variables"].append({param["key"]: parse_value_from_type(param["src"])})
-                        body[param["key"]] = "$"+param["key"]
-                elif isinstance(item["request"]["body"][mode], str):
-                    
-                    body = item["request"]["body"][mode]
-            request["data"] = body
+        if request["method"] != "GET" and item["request"].get('body') not in [{}, None]:
+            mode = item["request"]["body"]["mode"]
+            if isinstance(item["request"]["body"][mode], list):
+                for param in item["request"]["body"][mode]:
+                    if param["type"] == "text":
+                        api["variables"].update({param["key"]: parse_value_from_type(param["value"])})
+                    else:
+                        api["variables"].update({param["key"]: parse_value_from_type(param["src"])})
+                    data = {}
+                    data[param["key"]] = "$"+param["key"]
+                    request["data"] = data
+            elif isinstance(item["request"]["body"][mode], str):
+                if "Content-Type" in request['headers'].keys() and request['headers']['Content-Type'].find('json') > -1:
+                    json_str = item["request"]["body"][mode].replace('\n', '').replace('\t', '').replace('\\', '')
+                    if json_str != '':
+                        request["json"] = json.loads(json_str)
 
         api["request"] = request
         return api
-    
+
     def parse_items(self, items, folder_name=None):
         result = []
         for folder in items:
@@ -92,6 +91,7 @@ class PostmanParser(object):
                 api = self.parse_each_item(folder)
                 api["folder_name"] = folder_name
                 result.append(api)
+        print('123')
         return result
 
     def parse_data(self):
@@ -133,7 +133,6 @@ class PostmanParser(object):
                     outfile.write(my_json_str)
             else:
                 with io.open(file_path, 'w', encoding="utf-8") as outfile:
-                    my_json_str = json.dumps(each_api, ensure_ascii=False, indent=4)
-                    yaml.dump(my_json_str, outfile, allow_unicode=True, default_flow_style=False, indent=4)
+                    yaml.dump(each_api, outfile, allow_unicode=True, default_flow_style=False, indent=4)
                     
             logging.info("Generate JSON testset successfully: {}".format(file_path))

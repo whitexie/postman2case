@@ -1,21 +1,121 @@
 {
-	"name": "test_post",
-	"request": {
-		"url": "http://www.baidu.com",
-		"method": "POST",
-		"header": [],
-		"body": {
-			"mode": "formdata",
-			"formdata": [
-				{
-					"key": "search",
-					"value": "123",
-					"description": "",
-					"type": "text"
-				}
-			]
-		},
-		"description": ""
-	},
-	"response": []
+    "name": "test_post",
+    "event": [
+        {
+            "listen": "test",
+            "script": {
+                "id": "d4b7f90b-ae5f-437c-bcab-774e2f9db077",
+                "exec": [
+                    ""
+                ],
+                "type": "text/javascript"
+            }
+        }
+    ],
+    "request": {
+        "method": "POST",
+        "header": [
+            {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+            }
+        ],
+        "body": {
+            "mode": "raw",
+            "raw": "{\n\t\"method\": \"POST\"\n}"
+        },
+        "url": {
+            "raw": "https://postman-echo.com/post?q=search&testerhome",
+            "protocol": "https",
+            "host": [
+                "postman-echo",
+                "com"
+            ],
+            "path": [
+                "post"
+            ],
+            "query": [
+                {
+                    "key": "q",
+                    "value": "search"
+                },
+                {
+                    "key": "testerhome",
+                    "value": null
+                }
+            ]
+        }
+    },
+    "response": [
+        {
+            "name": "Success response",
+            "originalRequest": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "name": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n\t\"method\": \"POST\"\n}"
+                },
+                "url": {
+                    "raw": "https://postman-echo.com/post",
+                    "protocol": "https",
+                    "host": [
+                        "postman-echo",
+                        "com"
+                    ],
+                    "path": [
+                        "post"
+                    ]
+                }
+            },
+            "status": "OK",
+            "code": 200,
+            "_postman_previewlanguage": "json",
+            "header": [
+                {
+                    "key": "Content-Encoding",
+                    "value": "gzip"
+                },
+                {
+                    "key": "Content-Type",
+                    "value": "application/json; charset=utf-8"
+                },
+                {
+                    "key": "Date",
+                    "value": "Thu, 04 Oct 2018 13:16:50 GMT"
+                },
+                {
+                    "key": "ETag",
+                    "value": "W/\"21a-6y1+9dLw9Ui/9TFPCS1aNOaKU38\""
+                },
+                {
+                    "key": "Server",
+                    "value": "nginx"
+                },
+                {
+                    "key": "Vary",
+                    "value": "Accept-Encoding"
+                },
+                {
+                    "key": "Content-Length",
+                    "value": "376"
+                },
+                {
+                    "key": "Connection",
+                    "value": "keep-alive"
+                }
+            ],
+            "cookie": [],
+            "body": "{\n    \"args\": {},\n    \"data\": {\n        \"method\": \"POST\"\n    },\n    \"files\": {},\n    \"form\": {},\n    \"headers\": {\n        \"host\": \"postman-echo.com\",\n        \"content-length\": \"21\",\n        \"accept\": \"*/*\",\n        \"accept-encoding\": \"gzip, deflate\",\n        \"cache-control\": \"no-cache\",\n        \"content-type\": \"application/json\",\n        \"cookie\": \"sails.sid=s%3AG10mxUHVB65q6zAdIPRPk7kAxyMNpmeM.tn9m63fNTjoJBYkiUShtDIIliVwslI4ys8tvItjT2%2BA\",\n        \"postman-token\": \"e96e5264-9de6-4aa6-8737-3ab5489d561c\",\n        \"user-agent\": \"PostmanRuntime/7.3.0\",\n        \"x-forwarded-port\": \"443\",\n        \"x-forwarded-proto\": \"https\"\n    },\n    \"json\": {\n        \"method\": \"POST\"\n    },\n    \"url\": \"https://postman-echo.com/post\"\n}"
+        }
+    ]
 }

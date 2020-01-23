@@ -2,6 +2,8 @@
 
 
 def parse_value_from_type(value):
+    if not value:
+        return None
     if isinstance(value, int):
         return int(value)
     elif isinstance(value, float):

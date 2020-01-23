@@ -18,7 +18,7 @@ class TestParser(unittest.TestCase):
             content = json.load(f)
         other_content = self.postman_parser.read_postman_data()
         self.assertEqual(content, other_content)
-    
+
     def test_parse_url(self):
         request_url = {
             "raw": "https://postman-echo.com/get?foo1=bar1&foo2=bar2",
@@ -69,16 +69,16 @@ class TestParser(unittest.TestCase):
     def test_parse_each_item_get(self):
         with open("tests/data/test_get.json", encoding='utf-8', mode='r') as f:
             item = json.load(f)
-        
+
         result = {
             "name": "test_get",
             "validate": [],
-            "variables": [
+            "variables":
                 {
                     "search": "345"
-                }
-            ],
+                },
             "request": {
+                "data": {},
                 "method": "GET",
                 "url": "http://www.baidu.com",
                 "headers": {},
@@ -94,21 +94,26 @@ class TestParser(unittest.TestCase):
     def test_parse_each_item_post(self):
         with open("tests/data/test_post.json", encoding='utf-8', mode='r') as f:
             item = json.load(f)
-        
+
         result = {
             "name": "test_post",
             "validate": [],
-            "variables": [
+            "variables":
                 {
-                    "search": "123"
+                    "q": "search",
+                    "testerhome": None
                 }
-            ],
+            ,
             "request": {
                 "method": "POST",
-                "url": "http://www.baidu.com",
-                "headers": {},
-                "data": {
-                    "search": "$search"
+                "url": "https://postman-echo.com/post",
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "data": "{\n\t\"method\": \"POST\"\n}",
+                "params": {
+                    "q": "$q",
+                    "testerhome": "$testerhome"
                 }
             }
         }
@@ -118,7 +123,7 @@ class TestParser(unittest.TestCase):
     def test_parse_data(self):
         result = self.postman_parser.parse_data()
         self.assertEqual(len(result), 21)
-    
+
     def test_save(self):
         result = self.postman_parser.parse_data()
         self.postman_parser.save(result, "save")
