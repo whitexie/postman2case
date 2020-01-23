@@ -1,13 +1,10 @@
-name: Python package
+name: unittest 
 
-on:
-  push:
-    branches:    
-      - master
-      - dev
+on: [push]
+
 
 jobs:
-  build:
+  unittest:
 
     runs-on: ubuntu-latest
     strategy:
