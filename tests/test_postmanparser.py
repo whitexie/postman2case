@@ -78,7 +78,6 @@ class TestParser(unittest.TestCase):
                     "search": "345"
                 },
             "request": {
-                "data": {},
                 "method": "GET",
                 "url": "http://www.baidu.com",
                 "headers": {},
@@ -110,7 +109,7 @@ class TestParser(unittest.TestCase):
                 "headers": {
                     "Content-Type": "application/json"
                 },
-                "data": "{\n\t\"method\": \"POST\"\n}",
+                "json": {"method": "POST"},
                 "params": {
                     "q": "$q",
                     "testerhome": "$testerhome"
