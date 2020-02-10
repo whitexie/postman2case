@@ -27,4 +27,5 @@ jobs:
       run: |
         poetry run coverage run --source=postman2case -m unittest discover
         poetry run coverage report
+        poetry run coveralls
         
