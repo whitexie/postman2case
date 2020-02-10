@@ -3,6 +3,7 @@ import os
 import json
 import shutil
 from postman2case.core import PostmanParser
+from postman2case.parser import parse_value_from_type
 
 
 class TestParser(unittest.TestCase):
@@ -100,7 +101,8 @@ class TestParser(unittest.TestCase):
             "variables":
                 {
                     "q": "search",
-                    "testerhome": None
+                    "testerhome": None,
+                    "method": "POST"
                 }
             ,
             "request": {
@@ -109,7 +111,7 @@ class TestParser(unittest.TestCase):
                 "headers": {
                     "Content-Type": "application/json"
                 },
-                "json": {"method": "POST"},
+                "json": {"method": "$method"},
                 "params": {
                     "q": "$q",
                     "testerhome": "$testerhome"
@@ -127,3 +129,8 @@ class TestParser(unittest.TestCase):
         result = self.postman_parser.parse_data()
         self.postman_parser.save(result, "save")
         shutil.rmtree("save")
+
+    def test_parse_value_from_type(self):
+        value_list = [(1, 1), ('2', '2'), ('true', True), ('false', False), (3.1, 3.1), (None, None)]
+        for i in value_list:
+            self.assertEqual(parse_value_from_type(i[0]), i[1])

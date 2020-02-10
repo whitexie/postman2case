@@ -5,7 +5,6 @@ import os
 import yaml
 
 from postman2case.parser import parse_value_from_type
-from postman2case.utils import log
 
 
 class PostmanParser(object):
@@ -35,7 +34,6 @@ class PostmanParser(object):
             headers[header["key"]] = header["value"]
         return headers
 
-    @log
     def parse_each_item(self, item):
         """ parse each item in postman to testcase in httprunner
         """
@@ -73,7 +71,9 @@ class PostmanParser(object):
                 if "Content-Type" in request['headers'].keys() and request['headers']['Content-Type'].find('json') > -1:
                     json_str = item["request"]["body"][mode].replace('\n', '').replace('\t', '').replace('\\', '')
                     if json_str != '':
-                        request["json"] = json.loads(json_str)
+                        json_data = json.loads(json_str)
+                        self.parse_json(json_data, api["variables"])
+                        request["json"] = json_data
 
         api["request"] = request
         return api
@@ -91,7 +91,6 @@ class PostmanParser(object):
                 api = self.parse_each_item(folder)
                 api["folder_name"] = folder_name
                 result.append(api)
-        print('123')
         return result
 
     def parse_data(self):
@@ -102,6 +101,15 @@ class PostmanParser(object):
 
         result = self.parse_items(postman_data["item"], None)
         return result
+
+    def parse_json(self, json_data, var_json):
+        if isinstance(json_data, dict):
+            for key, value in json_data.items():
+                if isinstance(value, dict):
+                    self.parse_json(value, var_json)
+                else:
+                    json_data[key] = '$' + key
+                    var_json[key] = value
 
     @staticmethod
     def save(data, output_dir, output_file_type="json"):
