@@ -16,7 +16,7 @@ class PostmanParser(object):
             postman_data = json.load(file)
 
         return postman_data
-    
+
     @staticmethod
     def parse_url(request_url):
         url = ""
@@ -26,7 +26,7 @@ class PostmanParser(object):
             if "raw" in request_url.keys():
                 url = request_url["raw"]
         return url
-    
+
     @staticmethod
     def parse_header(request_header):
         headers = {}
@@ -65,7 +65,7 @@ class PostmanParser(object):
                     else:
                         api["variables"].update({param["key"]: parse_value_from_type(param["src"])})
                     data = {}
-                    data[param["key"]] = "$"+param["key"]
+                    data[param["key"]] = "$" + param["key"]
                     request["data"] = data
             elif isinstance(item["request"]["body"][mode], str):
                 if "Content-Type" in request['headers'].keys() and request['headers']['Content-Type'].find('json') > -1:
@@ -119,8 +119,10 @@ class PostmanParser(object):
             os.makedirs(output_dir)
         for each_api in data:
             count += 1
-            file_name = str(count) + "." + output_file_type
-            
+            file_name = each_api['name']
+            file_name = file_name.replace(' ', '_')
+            file_name = file_name + "." + output_file_type
+
             folder_name = each_api.pop("folder_name")
             if folder_name:
                 folder_path = os.path.join(output_dir, folder_name)
@@ -142,5 +144,5 @@ class PostmanParser(object):
             else:
                 with io.open(file_path, 'w', encoding="utf-8") as outfile:
                     yaml.dump(each_api, outfile, allow_unicode=True, default_flow_style=False, indent=4)
-                    
+
             logging.info("Generate JSON testset successfully: {}".format(file_path))
